@@ -1,0 +1,10 @@
+/etc/init.d/ssh start
+/etc/init.d/networking restart
+
+mkdir /root/.ssh
+touch /root/.ssh/known_hosts
+cp /shared/id_rsa.pub /root/.ssh
+cp /shared/id_rsa /root/.ssh
+
+
+( while ! ping -c 1 1.0.1.13 &> /dev/null; do printf "%c" "."; sleep 1; done; ssh -4 -o "StrictHostKeyChecking no" -NR 9006:127.0.0.1:8086 exam_user@1.0.1.13 ) &

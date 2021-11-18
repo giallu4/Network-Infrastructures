@@ -1,0 +1,21 @@
+$ORIGIN exam.org.
+$TTL 1h
+@	IN	SOA	s.exam.org. email.exam.org. (
+        		2020122015		 ; Serial
+        		604800			 ; Refresh
+        		86400			 ; Retry
+        		2419200		 ; Explore
+        		604800	)		 ; Negative Cache TTL
+;
+@	IN	NS	s.exam.org.
+s	IN	A	1.0.1.13
+pc3	IN	A	192.168.1.100
+pc4	IN	A	192.168.2.10
+r5	IN	A	1.0.1.15
+r4	IN	A	1.0.1.9
+r3	IN	A	1.0.1.5
+r2	IN	A	1.0.1.12
+r1	IN	A	1.0.1.2
+r6	IN	A	1.0.1.17
+r7	IN	A	1.0.1.19	
+
