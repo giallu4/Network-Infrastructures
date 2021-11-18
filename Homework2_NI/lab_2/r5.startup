@@ -1,0 +1,40 @@
+/etc/init.d/ssh start
+/etc/init.d/networking restart
+
+iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+
+/etc/init.d/quagga restart
+
+ip route add default via 1.0.1.14
+
+mkdir -p /dev/net
+mknod /dev/net/tun c 10 200
+chmod 600 /dev/net/tun
+
+mkdir /home/exam_user
+useradd exam_user -d /home/exam_user
+chown exam_user:exam_user /home/exam_user
+echo -e 'exam\nexam\n' | passwd exam_user
+
+cd /home/exam_user
+mkdir .ssh
+touch .ssh/authorized_keys
+chmod 700 /home/exam_user/.ssh
+chmod 600 /home/exam_user/.ssh/authorized_keys
+cd ..
+cd ..
+cat /shared/id_rsa.pub >> /home/exam_user/.ssh/authorized_keys
+chown exam_user:exam_user /home/exam_user/.ssh
+chown exam_user:exam_user /home/exam_user/.ssh/authorized_keys
+
+
+mkdir /home/ccd
+cp -a /shared/vpn/keys/server.* /home
+cp -a /shared/vpn/keys/dh2048.pem /home
+mv /home/dh2048.pem /home/dh.pem
+cp -a /shared/vpn/keys/ca.crt /home
+
+cp -a /shared/vpn/client_s /home/ccd
+cp -a /shared/vpn/server.conf /home
+
+

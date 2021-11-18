@@ -1,0 +1,18 @@
+/etc/init.d/ssh start
+/etc/init.d/networking restart
+ip route add default via 1.0.1.12
+
+mkdir /root/.ssh
+touch /root/.ssh/known_hosts
+cp /shared/id_rsa.pub /root/.ssh
+cp /shared/id_rsa /root/.ssh
+
+mkdir -p /dev/net
+mknod /dev/net/tun c 10 200
+chmod 600 /dev/net/tun
+
+cp -a /shared/vpn/keys/ca.crt /home
+cp -a /shared/vpn/keys/client_s.key /home
+cp -a /shared/vpn/keys/client_s.crt /home
+
+cp -a /shared/vpn/client.conf /home

@@ -1,0 +1,20 @@
+/etc/init.d/ssh start
+/etc/init.d/networking restart
+/etc/init.d/quagga restart
+ip route add default via 1.0.1.18
+
+mkdir /home/exam_user
+useradd exam_user -d /home/exam_user
+chown exam_user:exam_user /home/exam_user
+echo -e 'exam\nexam\n' | passwd exam_user
+
+cd /home/exam_user
+mkdir .ssh
+touch .ssh/authorized_keys
+chmod 700 /home/exam_user/.ssh
+chmod 600 /home/exam_user/.ssh/authorized_keys
+cd ..
+cd ..
+cat /shared/id_rsa.pub >> /home/exam_user/.ssh/authorized_keys
+chown exam_user:exam_user /home/exam_user/.ssh
+chown exam_user:exam_user /home/exam_user/.ssh/authorized_keys

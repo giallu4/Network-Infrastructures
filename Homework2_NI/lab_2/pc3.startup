@@ -1,0 +1,19 @@
+/etc/init.d/ssh start
+/etc/init.d/networking restart
+
+
+mkdir /home/port_user
+useradd port_user -d /home/port_user
+chown port_user:port_user /home/port_user
+echo -e 'exam\nexam\n' | passwd port_user
+
+cd /home/port_user
+mkdir .ssh
+touch .ssh/authorized_keys
+chmod 700 /home/port_user/.ssh
+chmod 600 /home/port_user/.ssh/authorized_keys
+cd ..
+cd ..
+cat /shared/port/id_rsa.pub >> /home/port_user/.ssh/authorized_keys
+chown port_user:port_user /home/port_user/.ssh
+chown port_user:port_user /home/port_user/.ssh/authorized_keys
